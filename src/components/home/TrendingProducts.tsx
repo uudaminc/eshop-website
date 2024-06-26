@@ -1,11 +1,21 @@
 import Image from "next/image";
 import React from "react";
-import ProductsCard from "./ProductsCard";
 import Link from "next/link";
+import TrendingProductsCard from "./TrendingProductsCard";
 
 const trendingProducts = [
   {
     id: "1",
+    name: "Leather Long Wallet",
+    color: "Natural",
+    price: "$75",
+    href: "#",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
+    imageAlt: "Hand stitched, orange leather long wallet.",
+  },
+  {
+    id: "2",
     name: "Leather Long Wallet",
     color: "Natural",
     price: "$75",
@@ -39,18 +49,18 @@ const TrendingProducts = () => {
 
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
           {trendingProducts.map((product) => (
-            <ProductsCard product={product}/>
+            <TrendingProductsCard product={product}/>
           ))}
         </div>
 
         <div className="mt-8 text-sm md:hidden">
-          <a
-            href="#"
+          <Link
+            href="/products"
             className="font-medium text-indigo-600 hover:text-indigo-500"
           >
             Shop the collection
             <span aria-hidden="true"> &rarr;</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

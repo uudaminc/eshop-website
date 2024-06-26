@@ -1,4 +1,7 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import Logo from '../../public/logo.svg'
 
 const footerNavigation = {
   products: [
@@ -38,9 +41,11 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-flow-col md:auto-rows-min md:grid-cols-12 md:gap-x-8 md:gap-y-16">
             {/* Image section */}
             <div className="col-span-1 md:col-span-2 lg:col-start-1 lg:row-start-1">
-              <img
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
+              <Image
+                width={8}
+                height={8}
+                src={Logo}
+                alt="Logo"
                 className="h-8 w-auto"
               />
             </div>
@@ -55,12 +60,12 @@ const Footer = () => {
                   <ul role="list" className="mt-6 space-y-6">
                     {footerNavigation.products.map((item) => (
                       <li key={item.name} className="text-sm">
-                        <a
+                        <Link
                           href={item.href}
                           className="text-gray-500 hover:text-gray-600"
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -88,12 +93,12 @@ const Footer = () => {
                 <ul role="list" className="mt-6 space-y-6">
                   {footerNavigation.customerService.map((item) => (
                     <li key={item.name} className="text-sm">
-                      <a
+                      <Link
                         href={item.href}
                         className="text-gray-500 hover:text-gray-600"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -134,7 +139,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-100 py-10 text-center">
           <p className="text-sm text-gray-500">
-            &copy; 2021 Your Company, Inc. All rights reserved.
+            &copy; 2024 Granite Top, Inc. All rights reserved.
           </p>
         </div>
       </div>

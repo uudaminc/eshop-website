@@ -12,7 +12,7 @@ interface ProductCardProps {
   color: string;
 }
 
-const ProductsCard = ({ product }: { product: ProductCardProps }) => {
+const TrendingProductsCard = ({ product }: { product: ProductCardProps }) => {
   return (
     <div key={product.id} className="group relative">
       <div className="h-56 w-full overflow-hidden rounded-md group-hover:opacity-75 lg:h-72 xl:h-80">
@@ -36,4 +36,4 @@ const ProductsCard = ({ product }: { product: ProductCardProps }) => {
   );
 };
 
-export default ProductsCard;
+export default TrendingProductsCard;

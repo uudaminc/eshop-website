@@ -3,6 +3,7 @@ import TrendingProducts from "./TrendingProducts";
 import Perks from "./Perks";
 import Collections from "./Collections";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -37,7 +38,9 @@ const Hero = () => {
           >
             <div className="relative w-full flex-1 bg-gray-800">
               <div className="absolute inset-0 overflow-hidden">
-                <img
+                <Image
+                  width={1200}
+                  height={300}
                   src="https://tailwindui.com/img/ecommerce-images/home-page-04-hero-full-width.jpg"
                   alt=""
                   className="h-full w-full object-cover object-center"
@@ -52,21 +55,18 @@ const Hero = () => {
               Mid-Season Sale
             </h1>
             <div className="mt-4 sm:mt-6">
-              <a
-                href="#"
+              <Link
+                href="/products"
                 className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 font-medium text-white hover:bg-indigo-700"
               >
-                Shop Collection
-              </a>
+                Shop Products
+              </Link>
             </div>
           </div>
         </div>
-
         <Collections />
       </div>
-
       <TrendingProducts />
-
       <Perks />
     </main>
   );

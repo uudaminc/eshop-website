@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Dialog, DialogPanel, Field, Label, Switch } from "@headlessui/react";
 import { classNames } from "@/utils/utils";
 
-export default function Example() {
+export default function Settings() {
   const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
     useState(true);
 

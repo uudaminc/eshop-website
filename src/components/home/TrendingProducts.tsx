@@ -39,7 +39,7 @@ const TrendingProducts = () => {
             Trending Products
           </h2>
           <Link
-            href=""
+            href="/products"
             className="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block"
           >
             Shop the collection
@@ -49,7 +49,7 @@ const TrendingProducts = () => {
 
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
           {trendingProducts.map((product) => (
-            <TrendingProductsCard product={product}/>
+            <TrendingProductsCard product={product} key={product.id} />
           ))}
         </div>
 

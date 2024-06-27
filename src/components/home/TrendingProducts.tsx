@@ -9,9 +9,9 @@ const trendingProducts = [
     name: "Leather Long Wallet",
     color: "Natural",
     price: "$75",
-    href: "#",
+    href: "/products/1232ew32",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg",
     imageAlt: "Hand stitched, orange leather long wallet.",
   },
   {
@@ -19,9 +19,9 @@ const trendingProducts = [
     name: "Leather Long Wallet",
     color: "Natural",
     price: "$75",
-    href: "#",
+    href: "/products/1232ew32",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-trending-product-02.jpg",
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
     imageAlt: "Hand stitched, orange leather long wallet.",
   },
   // More products...

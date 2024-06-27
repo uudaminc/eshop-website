@@ -1,3 +1,4 @@
+
 import React from "react";
 import TrendingProducts from "./TrendingProducts";
 import Perks from "./Perks";
@@ -13,13 +14,13 @@ const Hero = () => {
         {/* Background image and overlap */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 hidden sm:flex sm:flex-col"
+          className="absolute inset-0 hidden sm:flex sm:flex-col  "
         >
           <div className="relative w-full flex-1 bg-gray-800">
             <div className="absolute inset-0 overflow-hidden">
               <Image
-                width={1200}
-                height={300}
+                width={1500}
+                height={400}
                 src="https://tailwindui.com/img/ecommerce-images/home-page-04-hero-full-width.jpg"
                 alt=""
                 className="h-full w-full object-cover object-center"

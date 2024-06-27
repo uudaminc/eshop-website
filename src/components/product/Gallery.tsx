@@ -28,7 +28,8 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
                   <span className="sr-only">{image.name}</span>
                   <span className="absolute inset-0 overflow-hidden rounded-md">
                     <Image
-                      layout="fill"
+                     width={200}
+                     height={200}
                       src={image.src}
                       alt=""
                       className="h-full w-full object-cover object-center"
@@ -52,7 +53,8 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
         {images.map((image) => (
           <TabPanel key={image.id}>
             <Image
-              layout="fill"
+               width={600}
+               height={200}
               src={image.src}
               alt={image.alt}
               className="h-full w-full object-cover object-center sm:rounded-lg"

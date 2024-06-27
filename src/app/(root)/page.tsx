@@ -1,13 +1,6 @@
 "use client";
-import { Fragment, useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/home/Hero";
-import Footer from "@/components/Footer";
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
+import Hero from "@/components/home/Hero";
 
 export default function Home() {
   return (

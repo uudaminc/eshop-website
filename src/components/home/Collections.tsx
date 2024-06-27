@@ -32,7 +32,7 @@ const Collections = () => {
   return (
     <section
       aria-labelledby="collection-heading"
-      className="relative -mt-96 sm:mt-0"
+      className="relative -mt-96 sm:mt-0 "
     >
       <h2 id="collection-heading" className="sr-only">
         Collections

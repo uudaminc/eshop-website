@@ -5,6 +5,8 @@ import ProductCards from "@/components/product/ProductCards";
 import Breadcrumb from "@/components/Breadcrumb";
 import Filters from "@/components/filters/Filters";
 import MobileFilters from "@/components/filters/MobileFilters";
+import useSWR from 'swr';
+const fetcher = async(url: string) => fetch(url).then((res)=> res.json());
 
 const products = [
   {

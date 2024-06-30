@@ -3,7 +3,6 @@ import {
   ScanCommandOutput,
   ScanCommand,
 } from "@aws-sdk/lib-dynamodb";
-import { randomUUID } from "crypto";
 import { dbClient } from "@/config";
 
 export type IScanCommandOutput<T> = Omit<ScanCommandOutput, "Items"> & {

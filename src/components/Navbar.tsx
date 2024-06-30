@@ -1,6 +1,6 @@
 "use client";
 
-import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -11,6 +11,8 @@ import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+
+
 
   return (
     <header className="relative">

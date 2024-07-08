@@ -9,14 +9,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import GoogleIcon from "../icons/GoogleIcon";
 import GithubIcon from "../icons/GithubIcon";
 import Logo from "../../../public/logo.svg";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signUp } from "@/lib/actions/user.actions";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-  phoneNumber: z.string().min(10, { message: "Phone number must be at least 10 digits" }),
-  password: z.string().min(8, { message: "Password must be at least 8 characters" }),
-
+  phoneNumber: z
+    .string()
+    .min(10, { message: "Phone number must be at least 10 digits" }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" }),
 });
 
 type SignUpFormValues = z.infer<typeof formSchema>;
@@ -28,12 +39,17 @@ const SignUpForm = () => {
       email: "",
       phoneNumber: "",
       password: "",
-
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("Submitted data:", values);
+    try {
+      const newUser = await signUp(values);
+      console.log(newUser)
+    } catch (error) {
+      console.log("Error: ", error);
+    }
     // Handle form submission logic here
   };
 
@@ -41,7 +57,13 @@ const SignUpForm = () => {
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link href="/">
-          <Image width={10} height={10} className="mx-auto h-10 w-auto" src={Logo} alt="Logo" />
+          <Image
+            width={10}
+            height={10}
+            className="mx-auto h-10 w-auto"
+            src={Logo}
+            alt="Logo"
+          />
         </Link>
 
         <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -60,7 +82,13 @@ const SignUpForm = () => {
                   <FormItem>
                     <FormLabel>Email address</FormLabel>
                     <FormControl>
-                      <Input placeholder="name@host.com" type="email" autoComplete="email" {...field} className="focus:ring-0" />
+                      <Input
+                        placeholder="name@host.com"
+                        type="email"
+                        autoComplete="email"
+                        {...field}
+                        className="focus:ring-0"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -73,7 +101,13 @@ const SignUpForm = () => {
                   <FormItem>
                     <FormLabel>Phone number</FormLabel>
                     <FormControl>
-                      <Input placeholder="(203) 334-123" type="tel" autoComplete="tel" {...field} className="focus:ring-0" />
+                      <Input
+                        placeholder="(203) 334-123"
+                        type="tel"
+                        autoComplete="tel"
+                        {...field}
+                        className="focus:ring-0"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -86,14 +120,19 @@ const SignUpForm = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="********" type="password" autoComplete="new-password" {...field} className="focus:ring-0" />
+                      <Input
+                        placeholder="********"
+                        type="password"
+                        autoComplete="new-password"
+                        {...field}
+                        className="focus:ring-0"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-        
               <div>
                 <button
                   type="submit"
@@ -107,11 +146,16 @@ const SignUpForm = () => {
 
           <div>
             <div className="relative mt-10">
-              <div className="absolute inset-0 flex items-center" aria-hidden="true">
+              <div
+                className="absolute inset-0 flex items-center"
+                aria-hidden="true"
+              >
                 <div className="w-full border-t border-gray-200" />
               </div>
               <div className="relative flex justify-center text-sm font-medium leading-6">
-                <span className="bg-white px-6 text-gray-900">Or continue with</span>
+                <span className="bg-white px-6 text-gray-900">
+                  Or continue with
+                </span>
               </div>
             </div>
 

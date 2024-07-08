@@ -12,6 +12,7 @@
     "@aws-sdk/client-cognito-identity": "^3.600.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.606.0",
     "@aws-sdk/lib-dynamodb": "^3.602.0",
+    "@clerk/nextjs": "^5.2.2",
     "@headlessui/react": "^2.1.0",
     "@heroicons/react": "^2.1.4",
     "@hookform/resolvers": "^3.6.0",

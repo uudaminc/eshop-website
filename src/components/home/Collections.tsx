@@ -5,24 +5,24 @@ import CollectionCard from "./CollectionCard";
 
 const collections = [
   {
-    name: "Women's",
+    name: "Granite",
     href: "#",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-collection-01.jpg",
+      "https://hips.hearstapps.com/hmg-prod/images/hbx110123wh-kitchen-005-6613fbd4e2f90.jpg?crop=0.8785103785103785xw:1xh;center,top&resize=980:*",
     imageAlt: "Woman wearing a comfortable cotton t-shirt.",
   },
   {
-    name: "Men's",
+    name: "Marble",
     href: "#",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-collection-02.jpg",
+      "https://www.bhg.com/thmb/wU3_5qwu-lu4NioJtzSrE9kOGQU=/8026x0/filters:no_upscale():strip_icc()/20190521_meredith_002-2ad3962f1e604e499b8ce59ebe6481c6.jpg",
     imageAlt: "Man wearing a comfortable and casual cotton t-shirt.",
   },
   {
-    name: "Desk Accessories",
+    name: "Modern",
     href: "#",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-04-collection-03.jpg",
+      "https://signature.my/wp-content/uploads/2023/05/87-jpg.webp",
     imageAlt:
       "Person sitting at a wooden desk with paper note organizer, pencil and tablet.",
   },

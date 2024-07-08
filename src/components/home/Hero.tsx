@@ -21,10 +21,10 @@ const Hero = () => {
               <Image
                 width={1500}
                 height={400}
-                src="https://tailwindui.com/img/ecommerce-images/home-page-04-hero-full-width.jpg"
+                src="https://st.hzcdn.com/simgs/2c91347201d471fc_14-0096/home-design.jpg"
                 alt=""
                 className="h-full w-full object-cover object-center"
-              />
+              />  
             </div>
             <div className="absolute inset-0 bg-gray-900 opacity-50" />
           </div>

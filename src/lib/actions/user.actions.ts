@@ -1,5 +1,5 @@
 // ... your initilization functions
-"use server"
+"use server";
 import { createAdminClient, createSessionClient } from "@/utils/appwrite";
 import { parseStringify } from "@/utils/utils";
 import { cookies } from "next/headers";
@@ -9,6 +9,18 @@ import { parse } from "path";
 type SignUpParams = {
   email: string;
   password: string;
+};
+
+export const signIn = async ({ email, password }: SignUpParams) => {
+  try {
+    const { account } = await createAdminClient();
+
+    const response = await account.createEmailPasswordSession(email, password);
+
+    return parseStringify(response);
+  } catch (error) {
+    console.log("Error:", error);
+  }
 };
 
 export const signUp = async (userData: SignUpParams) => {
@@ -35,10 +47,21 @@ export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
     const user = await account.get();
-    return parseStringify(user)
-
+    return parseStringify(user);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return null;
   }
 }
+
+export const logOutAccount = async () => {
+  try {
+    const { account } = await createSessionClient();
+    cookies().delete("appwrite-session");
+
+    await account.deleteSession("current");
+    return true
+  } catch (error) {
+    console.log("Error:", error);
+  }
+};

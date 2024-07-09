@@ -1,36 +1,74 @@
 "use client";
 
+import { getLoggedInUser, logOutAccount } from "@/lib/actions/user.actions";
 import { classNames } from "@/utils/utils";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import { useSession, signIn } from "next-auth/react";
-
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
 
-const userNavigation = [
-  { name: "Your Order", href: "/user/1e321/my-orders" },
-  { name: "Settings", href: "/user/1e321/settings" },
-  { name: "Sign out", href: "#" },
-];
+import React, { useEffect, useState } from "react";
+
+type User = {
+  $createdAt: string;
+  $id: string;
+  $updatedAt: string;
+  accessedAt: string;
+  email: string;
+  emailVerification: boolean;
+  labels: any[]; // Adjust type if needed
+  mfa: boolean;
+  name: string;
+  passwordUpdate: string;
+  phone: string;
+  phoneVerification: boolean;
+  prefs: Record<string, any>; // Adjust type if needed
+  registration: string;
+  status: boolean;
+  targets: {
+    $createdAt: string;
+    $id: string;
+    $updatedAt: string;
+    identifier: string;
+    name: string;
+    providerId: string | null;
+    providerType: string;
+    userId: string;
+  }[];
+};
 
 const NavItems = () => {
-  const { data: session, status } = useSession();
-  console.log(session);
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+  const router = useRouter();
+  useEffect(() => {
+    const fetchLoggedInUser = async () => {
+      const user = await getLoggedInUser();
+      setLoggedInUser(user);
+    };
+
+    fetchLoggedInUser();
+  }, []);
+
+  const handleLogOut = async () => {
+    const loggedOut = await logOutAccount();
+
+    if (loggedOut) router.push("/");
+  };
+  console.log(loggedInUser);
   return (
     <div className="flex flex-1 items-center justify-end">
       <div className="flex items-center lg:ml-8">
-        {!session ? (
+        {!loggedInUser ? (
           <Link
             href="/sign-in"
             className="hidden text-sm font-medium text-gray-700 hover:text-gray-800 lg:block"
           >
-          <button
-            type="button"
-            className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  "
-          >
-            Sign In
-          </button>
+            <button
+              type="button"
+              className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  "
+            >
+              Sign In
+            </button>
           </Link>
         ) : (
           <Menu as="div" className="relative ml-3">
@@ -47,23 +85,43 @@ const NavItems = () => {
             </div>
             <MenuItems
               transition
-              className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
             >
-              {userNavigation.map((item) => (
-                <MenuItem key={item.name}>
-                  {({ focus }) => (
-                    <Link
-                      href={item.href}
-                      className={classNames(
-                        focus ? "bg-gray-100" : "",
-                        "block px-4 py-2 text-sm text-gray-700"
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
+              <div className="px-4 py-3">
+                <p className="text-sm">Signed in as</p>
+                <p className="truncate text-sm font-medium text-gray-900">
+                  {loggedInUser.email}
+                </p>
+              </div>
+              <div className="py-1">
+                <MenuItem>
+                  <Link
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                  >
+                    Account settings
+                  </Link>
                 </MenuItem>
-              ))}
+                <MenuItem>
+                  <Link
+                    href="/user/1e321/my-orders"
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                  >
+                    My Orders
+                  </Link>
+                </MenuItem>
+              </div>
+              <div className="py-1">
+                <MenuItem>
+                  <button
+                    onClick={() => handleLogOut()}
+                    type="submit"
+                    className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                  >
+                    Sign out
+                  </button>
+                </MenuItem>
+              </div>
             </MenuItems>
           </Menu>
         )}

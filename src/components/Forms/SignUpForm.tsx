@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signUp } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -33,6 +34,8 @@ const formSchema = z.object({
 type SignUpFormValues = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
+const router = useRouter()
+
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,6 +50,7 @@ const SignUpForm = () => {
     try {
       const newUser = await signUp(values);
       console.log(newUser)
+      if(newUser) router.push("/")
     } catch (error) {
       console.log("Error: ", error);
     }

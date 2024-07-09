@@ -19,11 +19,12 @@ import { Input } from "@/components/ui/input";
 import GoogleIcon from "../icons/GoogleIcon";
 import GithubIcon from "../icons/GithubIcon";
 import Logo from "../../../public/logo.svg";
-import { signIn } from "next-auth/react";
+
 import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/actions/user.actions";
 
 const formSchema = z.object({
-  phoneNumber: z.string().min(10, { message: "Invalid phone number" }),
+  email: z.string().email({ message: "Invalid email address" }),
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters" }),
@@ -32,35 +33,24 @@ const formSchema = z.object({
 type SignInFormValues = z.infer<typeof formSchema>;
 
 const SignInForm = () => {
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      phoneNumber: "",
+      email: "",
       password: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const response = await fetch("/api/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phoneNumber: values.phoneNumber,
-        password: values.password,
-      }),
-    });
-
-    if (response.ok) {
-      await signIn("credentials", {
-        phoneNumber: values.phoneNumber,
-        password: values.password,
-      });
-      router.push('/')
-    } else {
-      console.log("Error");
+    console.log("Submitted data:", values);
+    try {
+      const { email, password } = values;
+      const response = await signIn({ email: email, password: password });
+      console.log(response);
+      if (response) router.push("/");
+    } catch (error) {
+      console.log("Error: ", error);
     }
   };
   return (
@@ -87,15 +77,14 @@ const SignInForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="phoneNumber"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="+1234567890"
+                        placeholder="name@domain.com"
                         type="text"
-                        autoComplete="tel"
                         {...field}
                         className=" focus:ring-0 "
                       />
@@ -162,7 +151,6 @@ const SignInForm = () => {
 
             <div className="mt-6 grid grid-cols-2 gap-4">
               <button
-                onClick={() => signIn("cognito")}
                 className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
               >
                 <GoogleIcon />

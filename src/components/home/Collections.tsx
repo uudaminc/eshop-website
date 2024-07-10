@@ -6,21 +6,21 @@ import CollectionCard from "./CollectionCard";
 const collections = [
   {
     name: "Granite",
-    href: "#",
+    href: "/products",
     imageSrc:
       "https://hips.hearstapps.com/hmg-prod/images/hbx110123wh-kitchen-005-6613fbd4e2f90.jpg?crop=0.8785103785103785xw:1xh;center,top&resize=980:*",
     imageAlt: "Woman wearing a comfortable cotton t-shirt.",
   },
   {
     name: "Marble",
-    href: "#",
+    href: "/products",
     imageSrc:
       "https://www.bhg.com/thmb/wU3_5qwu-lu4NioJtzSrE9kOGQU=/8026x0/filters:no_upscale():strip_icc()/20190521_meredith_002-2ad3962f1e604e499b8ce59ebe6481c6.jpg",
     imageAlt: "Man wearing a comfortable and casual cotton t-shirt.",
   },
   {
     name: "Modern",
-    href: "#",
+    href: "/products",
     imageSrc:
       "https://signature.my/wp-content/uploads/2023/05/87-jpg.webp",
     imageAlt:

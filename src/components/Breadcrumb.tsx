@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const breadcrumbs = [{ id: 1, name: "Men", href: "#" }];
+const breadcrumbs = [{ id: 1, name: "Kitchen", href: "#" }];
 
 const Breadcrumb = () => {
   return (
@@ -39,7 +39,7 @@ const Breadcrumb = () => {
               aria-current="page"
               className="font-medium text-gray-500 hover:text-gray-600"
             >
-              New Arrivals
+             Granite 
             </Link>
           </li>
         </ol>

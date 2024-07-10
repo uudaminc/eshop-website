@@ -1,18 +1,15 @@
 "use client";
 
-
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import Logo from "../../public/logo.svg";
+import Logo from "../../public/Logo.png";
 import NavMenus from "./NavMenus";
 import NavItems from "./NavItems";
 import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-
-
 
   return (
     <header className="relative">
@@ -24,8 +21,8 @@ const Navbar = () => {
               <Link href="/">
                 <span className="sr-only">Your Company</span>
                 <Image
-                  width={8}
-                  height={8}
+                  width={130}
+                  height={50}
                   src={Logo}
                   alt="Logo"
                   className="h-8 w-auto"
@@ -34,7 +31,6 @@ const Navbar = () => {
             </div>
 
             <div className="hidden h-full lg:flex">
-              {/* Flyout menus */}
               <NavMenus />
             </div>
 
@@ -45,8 +41,8 @@ const Navbar = () => {
             <Link href="/" className="lg:hidden">
               <span className="sr-only">Your Company</span>
               <Image
-                width={8}
-                height={8}
+                width={130}
+                height={50}
                 src={Logo}
                 alt="Logo"
                 className="h-8 w-auto"

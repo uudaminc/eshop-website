@@ -1,42 +1,13 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import ProductCards from "@/components/product/ProductCards";
 import Breadcrumb from "@/components/Breadcrumb";
 import Filters from "@/components/filters/Filters";
 import MobileFilters from "@/components/filters/MobileFilters";
-import useSWR from 'swr';
-const fetcher = async(url: string) => fetch(url).then((res)=> res.json());
+import { index } from "@/utils/algolia";
 
-const products = [
-  {
-    id: "1",
-    name: "Basic Tee 8-Pack",
-    href: "/products/1e324e321",
-    price: "$256",
-    description:
-      "Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day.",
-    options: "8 colors",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-01.jpg",
-    imageAlt:
-      "Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.",
-  },
-  {
-    id: "2",
-    name: "Basic Tee",
-    href: "/products/412e213",
-    price: "$32",
-    description:
-      "Look like a visionary CEO and wear the same black t-shirt every day.",
-    options: "Black",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-02.jpg",
-    imageAlt: "Front of plain black t-shirt.",
-  },
-  // More products...
-];
-
+import { useRouter } from "next/navigation";  
 const filters = [
   {
     id: "color",
@@ -75,13 +46,65 @@ const filters = [
   },
 ];
 
+interface Product{
+  Name: string;
+  Price: string;
+  Width: string;
+  Height: string;
+  Depth: string;
+  Color: string;
+  Style: string;
+  Location: string;
+  Type: string;
+  Finish: string;
+  DrawerCount: number;
+  Store: string;
+  Brand: string;
+  Assembled: string;
+  Description: string;
+  ObjectId: string;
+}
+
 export default function ProductsPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [totalItems, setTotalItems] = useState<number>(0);
+  const hitsPerPage = 20;
+  const [nbPages, setNbPages] = useState<number | undefined>(undefined);
+  const pagesToShow = 5;
+  const totalPages = nbPages || 1;
+  const startPage = Math.max(0, currentPage - Math.floor(pagesToShow / 2));
+  const endPage = Math.min(totalPages - 1, startPage + pagesToShow - 1);
+  const pages = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, index) => startPage + index
+  );
+  const [hits, setHits] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function performSearch() {
+      try {
+        const response = await index.search<Product>(inputValue, {
+          hitsPerPage,
+          page: currentPage,
+        });
+        // console.log(response.hits);
+        setNbPages(response.nbPages);
+        setTotalItems(response.nbHits);
+        setHits(response.hits);
+        // window.scrollTo(0, 0);
+      } catch (error) {
+        console.error("Algolia search error:", error);
+      }
+    }
+    performSearch();
+  }, [inputValue, currentPage]);
 
   return (
     <div className="bg-white">
       <div>
-        {/* Mobile filter dialog */}
+
         <MobileFilters
           mobileFiltersOpen={mobileFiltersOpen}
           setMobileFiltersOpen={setMobileFiltersOpen}
@@ -92,7 +115,7 @@ export default function ProductsPage() {
         <main className="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
           <div className="border-b border-gray-200 pb-10 pt-24">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-              New Arrivals
+              Granite kitchens
             </h1>
             <p className="mt-4 text-base text-gray-500">
               Checkout out the latest release of Basic Tees, new and improved
@@ -103,6 +126,8 @@ export default function ProductsPage() {
           <div className="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
             <Filters
               filters={filters}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
               mobileFiltersOpen={mobileFiltersOpen}
               setMobileFiltersOpen={setMobileFiltersOpen}
             />
@@ -116,8 +141,8 @@ export default function ProductsPage() {
               </h2>
 
               <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                {products.map((product) => (
-                  <ProductCards product={product} key={product.id}/>
+                {hits.map((product) => (
+                  <ProductCards product={product} key={product.ObjectId} />
                 ))}
               </div>
             </section>

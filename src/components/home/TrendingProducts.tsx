@@ -24,6 +24,66 @@ const trendingProducts = [
       "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
     imageAlt: "Hand stitched, orange leather long wallet.",
   },
+  {
+    id: "3",
+    name: "Leather Long Wallet",
+    color: "Natural",
+    price: "$75",
+    href: "/products/1232ew32",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt: "Hand stitched, orange leather long wallet.",
+  },
+  {
+    id: "4",
+    name: "Leather Long Wallet",
+    color: "Natural",
+    price: "$75",
+    href: "/products/1232ew32",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt: "Hand stitched, orange leather long wallet.",
+  },
+  {
+    id: "5",
+    name: "Leather Long Wallet",
+    color: "Natural",
+    price: "$75",
+    href: "/products/1232ew32",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt: "Hand stitched, orange leather long wallet.",
+  },
+  {
+    id: "6",
+    name: "Leather Long Wallet",
+    color: "Natural",
+    price: "$75",
+    href: "/products/1232ew32",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt: "Hand stitched, orange leather long wallet.",
+  },
+  {
+    id: "7",
+    name: "Leather Long Wallet",
+    color: "Natural",
+    price: "$75",
+    href: "/products/1232ew32",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt: "Hand stitched, orange leather long wallet.",
+  },
+  {
+    id: "8",
+    name: "Leather Long Wallet",
+    color: "Natural",
+    price: "$75",
+    href: "/products/1232ew32",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt: "Hand stitched, orange leather long wallet.",
+  },
   // More products...
 ];
 
@@ -47,7 +107,7 @@ const TrendingProducts = () => {
           </Link>
         </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-8 lg:gap-x-8 ">
           {trendingProducts.map((product) => (
             <TrendingProductsCard product={product} key={product.id} />
           ))}

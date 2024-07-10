@@ -1,4 +1,5 @@
 import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 import React from "react";
 
 interface MobileMenuProps {
@@ -19,10 +20,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen }) => {
       </button>
 
       {/* Search */}
-      <a href="#" className="ml-2 p-2 text-gray-400 hover:text-gray-500">
+      <Link href="#" className="ml-2 p-2 text-gray-400 hover:text-gray-500">
         <span className="sr-only">Search</span>
         <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-      </a>
+      </Link>
     </div>
   );
 };

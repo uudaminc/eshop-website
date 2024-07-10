@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Logo from '../../public/logo.svg'
+import Logo from '../../public/Logo.png'
 
 const footerNavigation = {
   products: [
@@ -42,8 +42,8 @@ const Footer = () => {
             {/* Image section */}
             <div className="col-span-1 md:col-span-2 lg:col-start-1 lg:row-start-1">
               <Image
-                width={8}
-                height={8}
+                width={130}
+                height={50}
                 src={Logo}
                 alt="Logo"
                 className="h-8 w-auto"

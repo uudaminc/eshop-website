@@ -12,7 +12,7 @@ import {
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Granite Top E-shop",
+  title: "Granite Top Shop",
   description: "Eshop",
 };
 

@@ -1,7 +1,3 @@
-
-import { Fragment, useState } from 'react'
-
-
 import { classNames } from '@/utils/utils'
 
 const products = [

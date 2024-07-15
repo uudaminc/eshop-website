@@ -1,73 +1,70 @@
 "use client";
 
-import { ChangeEvent, Fragment, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import ProductCards from "@/components/product/ProductCards";
 import Breadcrumb from "@/components/Breadcrumb";
 import Filters from "@/components/filters/Filters";
 import MobileFilters from "@/components/filters/MobileFilters";
 import { index } from "@/utils/algolia";
-
-import { useRouter } from "next/navigation";  
+import { Product } from "@/types";
+import { buildAlgoliaFilters } from "@/utils/utils";
 const filters = [
   {
     id: "color",
     name: "Color",
     options: [
-      { value: "white", label: "White" },
-      { value: "beige", label: "Beige" },
-      { value: "blue", label: "Blue" },
-      { value: "brown", label: "Brown" },
-      { value: "green", label: "Green" },
-      { value: "purple", label: "Purple" },
+      { value: "White", label: "White" },
+      { value: "Gray", label: "Gray" },
+      { value: "Oak", label: "Oak" },
+      { value: "Cognac", label: "Cognac" },
+      { value: "Brown", label: "Brown" },
+      { value: "Java", label: "Java" },
     ],
   },
   {
-    id: "category",
-    name: "Category",
+    id: "type",
+    name: "Type",
     options: [
-      { value: "new-arrivals", label: "All New Arrivals" },
-      { value: "tees", label: "Tees" },
-      { value: "crewnecks", label: "Crewnecks" },
-      { value: "sweatshirts", label: "Sweatshirts" },
-      { value: "pants-shorts", label: "Pants & Shorts" },
+      { value: "Sink base", label: "Sink base" },
+      { value: "Base", label: "Base" },
+      { value: "Wall", label: "Wall" },
     ],
   },
   {
-    id: "sizes",
-    name: "Sizes",
+    id: "finish",
+    name: "Finish",
     options: [
-      { value: "xs", label: "XS" },
-      { value: "s", label: "S" },
-      { value: "m", label: "M" },
-      { value: "l", label: "L" },
-      { value: "xl", label: "XL" },
-      { value: "2xl", label: "2XL" },
+      { value: "Alpine White", label: "Alpine White" },
+      { value: "Dove Gray", label: "Dove Gray" },
+      { value: "Satin White", label: "Satin White" },
+      { value: "Medium Oak", label: "Medium Oak" }, 
+      { value: "Cognac", label: "Cognac" },
+      { value: "Natural Hickory", label: "Natural Hickory" },
+      { value: "Brindle", label: "Brindle" },
+      { value: "Java", label: "Java" },
+
+    ],
+  },
+  {
+    id: "style",
+    name: "Style",
+    options: [
+      { value: "Shaker", label: "Shaker" },
+      { value: "Raised Panel", label: "Raised Panel" },
+   
+
     ],
   },
 ];
 
-interface Product{
-  Name: string;
-  Price: string;
-  Width: string;
-  Height: string;
-  Depth: string;
-  Color: string;
-  Style: string;
-  Location: string;
-  Type: string;
-  Finish: string;
-  DrawerCount: number;
-  Store: string;
-  Brand: string;
-  Assembled: string;
-  Description: string;
-  ObjectId: string;
-}
 
 export default function ProductsPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [inputValue, setInputValue] = useState<string>("");
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
+  const [updatedFilters, setUpdatedFilters] = useState<{
+    [key: string]: string[];
+  }>({});
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [totalItems, setTotalItems] = useState<number>(0);
   const hitsPerPage = 20;
@@ -83,6 +80,7 @@ export default function ProductsPage() {
   const [hits, setHits] = useState<Product[]>([]);
 
   useEffect(() => {
+    console.log(selectedFilters)
     async function performSearch() {
       try {
         const response = await index.search<Product>(inputValue, {
@@ -93,13 +91,36 @@ export default function ProductsPage() {
         setNbPages(response.nbPages);
         setTotalItems(response.nbHits);
         setHits(response.hits);
-        // window.scrollTo(0, 0);
       } catch (error) {
         console.error("Algolia search error:", error);
       }
     }
     performSearch();
-  }, [inputValue, currentPage]);
+  }, [inputValue, currentPage, selectedFilters]);
+
+
+  const applyFilters = () => {
+    let filteredHits = hits;
+  
+    Object.keys(updatedFilters).forEach((filterKey) => {
+      const filterValues = updatedFilters[filterKey];
+  
+      filteredHits = filteredHits.filter((hit) => {
+        const product = hit as Product;
+  
+        return (
+          typeof product[filterKey as keyof Product] === 'string' &&
+          filterValues.includes(product[filterKey as keyof Product] as string)
+        );
+      });
+    });
+  
+    setHits(filteredHits);
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [updatedFilters, hits]);
 
   return (
     <div className="bg-white">
@@ -124,10 +145,12 @@ export default function ProductsPage() {
           </div>
 
           <div className="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
-            <Filters
+          <Filters
               filters={filters}
               inputValue={inputValue}
               setInputValue={setInputValue}
+              selectedFilters={selectedFilters}
+              setSelectedFilters={setSelectedFilters}
               mobileFiltersOpen={mobileFiltersOpen}
               setMobileFiltersOpen={setMobileFiltersOpen}
             />
@@ -142,7 +165,7 @@ export default function ProductsPage() {
 
               <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
                 {hits.map((product) => (
-                  <ProductCards product={product} key={product.ObjectId} />
+                  <ProductCards product={product} key={product.objectId} />
                 ))}
               </div>
             </section>

@@ -17,7 +17,7 @@ const useCart = create(
       addItem: (data: Product) => {
         const currentItems = get().items;
         const existingItem = currentItems.find(
-          (item) => item.ObjectId === data.ObjectId
+          (item) => item.objectId === data.objectId
         );
 
         if (existingItem) {
@@ -29,7 +29,7 @@ const useCart = create(
         toast.success("Added to the cart");
       },
       removeItem: (id: string) => {
-        set({ items: [...get().items.filter((item) => item.ObjectId !== id)] });
+        set({ items: [...get().items.filter((item) => item.objectId !== id)] });
       },
       removeAll: () => set({ items: [] }),
     }),

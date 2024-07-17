@@ -1,13 +1,13 @@
 "use client";
 
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCards from "@/components/product/ProductCards";
 import Breadcrumb from "@/components/Breadcrumb";
 import Filters from "@/components/filters/Filters";
 import MobileFilters from "@/components/filters/MobileFilters";
 import { index } from "@/utils/algolia";
 import { Product } from "@/types";
-import { buildAlgoliaFilters } from "@/utils/utils";
+
 const filters = [
   {
     id: "color",
@@ -37,12 +37,11 @@ const filters = [
       { value: "Alpine White", label: "Alpine White" },
       { value: "Dove Gray", label: "Dove Gray" },
       { value: "Satin White", label: "Satin White" },
-      { value: "Medium Oak", label: "Medium Oak" }, 
+      { value: "Medium Oak", label: "Medium Oak" },
       { value: "Cognac", label: "Cognac" },
       { value: "Natural Hickory", label: "Natural Hickory" },
       { value: "Brindle", label: "Brindle" },
       { value: "Java", label: "Java" },
-
     ],
   },
   {
@@ -51,17 +50,16 @@ const filters = [
     options: [
       { value: "Shaker", label: "Shaker" },
       { value: "Raised Panel", label: "Raised Panel" },
-   
-
     ],
   },
 ];
 
-
 export default function ProductsPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [inputValue, setInputValue] = useState<string>("");
-  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
+  const [selectedFilters, setSelectedFilters] = useState<{
+    [key: string]: string[];
+  }>({});
   const [updatedFilters, setUpdatedFilters] = useState<{
     [key: string]: string[];
   }>({});
@@ -80,7 +78,7 @@ export default function ProductsPage() {
   const [hits, setHits] = useState<Product[]>([]);
 
   useEffect(() => {
-    console.log(selectedFilters)
+    console.log(selectedFilters);
     async function performSearch() {
       try {
         const response = await index.search<Product>(inputValue, {
@@ -98,23 +96,22 @@ export default function ProductsPage() {
     performSearch();
   }, [inputValue, currentPage, selectedFilters]);
 
-
   const applyFilters = () => {
     let filteredHits = hits;
-  
+
     Object.keys(updatedFilters).forEach((filterKey) => {
       const filterValues = updatedFilters[filterKey];
-  
+
       filteredHits = filteredHits.filter((hit) => {
         const product = hit as Product;
-  
+
         return (
-          typeof product[filterKey as keyof Product] === 'string' &&
+          typeof product[filterKey as keyof Product] === "string" &&
           filterValues.includes(product[filterKey as keyof Product] as string)
         );
       });
     });
-  
+
     setHits(filteredHits);
   };
 
@@ -125,7 +122,6 @@ export default function ProductsPage() {
   return (
     <div className="bg-white">
       <div>
-
         <MobileFilters
           mobileFiltersOpen={mobileFiltersOpen}
           setMobileFiltersOpen={setMobileFiltersOpen}
@@ -145,7 +141,7 @@ export default function ProductsPage() {
           </div>
 
           <div className="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
-          <Filters
+            <Filters
               filters={filters}
               inputValue={inputValue}
               setInputValue={setInputValue}
@@ -157,8 +153,7 @@ export default function ProductsPage() {
 
             <section
               aria-labelledby="product-heading"
-              className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3"
-            >
+              className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
               <h2 id="product-heading" className="sr-only">
                 Products
               </h2>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Logo from '../../public/Logo.png'
+import Logo from '../../public/logo-main.png'
 
 const footerNavigation = {
   products: [
@@ -51,7 +51,7 @@ const Footer = () => {
             </div>
 
             {/* Sitemap sections */}
-            <div className="col-span-6 mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8 md:col-start-3 md:row-start-1 md:mt-0 lg:col-span-6 lg:col-start-2 md:ml-14">
+            <div className="col-span-6 mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8 md:col-start-3 md:row-start-1 md:mt-0 lg:col-span-6 lg:col-start-2 md:ml-20">
               <div className="grid grid-cols-1 gap-y-12 sm:col-span-2 sm:grid-cols-2 sm:gap-x-8">
                 <div>
                   <h3 className="text-sm font-medium text-gray-900">

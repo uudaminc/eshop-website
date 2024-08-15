@@ -22,6 +22,7 @@ interface FiltersProps {
 }
 
 const Filters: React.FC<FiltersProps> = ({
+
   mobileFiltersOpen,
   setMobileFiltersOpen,
   setInputValue,
@@ -66,11 +67,13 @@ const Filters: React.FC<FiltersProps> = ({
         [filterId]:
           selectedFilters[filterId]?.filter((value) => value !== optionValue) ||
           [],
+          
       });
     }
   };
 
   return (
+
     <aside>
       <h2 className="sr-only">Filters</h2>
 

@@ -7,7 +7,6 @@ import Filters from "@/components/filters/Filters";
 import MobileFilters from "@/components/filters/MobileFilters";
 import { index } from "@/utils/algolia";
 import { Product } from "@/types";
-import { buildAlgoliaFilters } from "@/utils/utils";
 const filters = [
   {
     id: "color",
@@ -101,7 +100,6 @@ export default function ProductsPage() {
 
   const applyFilters = () => {
     let filteredHits = hits;
-  
     Object.keys(updatedFilters).forEach((filterKey) => {
       const filterValues = updatedFilters[filterKey];
   
@@ -140,7 +138,7 @@ export default function ProductsPage() {
             </h1>
             <p className="mt-4 text-base text-gray-500">
               Checkout out the latest release of Basic Tees, new and improved
-              with four openings!
+              with four openings! 
             </p>
           </div>
 

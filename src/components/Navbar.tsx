@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../public/logo-main.png";
 import NavMenus from "./NavMenus";
 import NavItems from "./NavItems";
@@ -10,6 +10,7 @@ import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+
 
   return (
     <header className="relative">

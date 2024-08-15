@@ -12,6 +12,7 @@
     "@algolia/client-search": "^4.24.0",
     "@aws-sdk/client-cognito-identity": "^3.600.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.606.0",
+    "@aws-sdk/client-dynamodb": "^3.614.0",
     "@aws-sdk/lib-dynamodb": "^3.602.0",
     "@clerk/elements": "^0.13.0",
     "@clerk/nextjs": "^5.3.1",
@@ -36,10 +37,12 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.0",
+    "react-hot-toast": "^2.4.1",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^20",

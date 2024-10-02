@@ -16,6 +16,7 @@
 import { Fragment } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import Header from '@/app/_components/header'
 
 const product = {
   name: 'Application UI Icon Pack',
@@ -111,6 +112,7 @@ function classNames(...classes: string[]) {
 export default function ProductDetail({ params }: { params: { id: string } }) {
   return (
     <div className="bg-white">
+      <Header/>
       <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         {/* Product */}
         <div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">

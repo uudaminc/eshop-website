@@ -1,196 +1,185 @@
-'use client'
+/*
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+*/
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-import { useState } from 'react'
-import {
-  Dialog,
-  DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Popover,
-  PopoverButton,
-  PopoverGroup,
-  PopoverPanel,
-} from '@headlessui/react'
-import {
-  ArrowPathIcon,
-  Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+const user = {
+  name: 'Tom Cook',
+  email: 'tom@example.com',
+  imageUrl:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+}
+const navigation = [
+  { name: 'Dashboard', href: '#', current: true },
+  { name: 'Team', href: '#', current: false },
+  { name: 'Projects', href: '#', current: false },
+  { name: 'Calendar', href: '#', current: false },
+]
+const userNavigation = [
+  { name: 'Your Profile', href: '#' },
+  { name: 'Settings', href: '#' },
+  { name: 'Sign out', href: '#' },
+]
 
-const products = [
-  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-  { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-  { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-  { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-]
-const callsToAction = [
-  { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-  { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
+}
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
   return (
-    <header className="bg-white">
-      <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-        <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8 w-auto" />
-          </a>
-        </div>
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon aria-hidden="true" className="h-6 w-6" />
-          </button>
-        </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <Popover className="relative">
-            <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-              Product
-              <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-            </PopoverButton>
-
-            <PopoverPanel
-              transition
-              className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
-            >
-              <div className="p-4">
-                {products.map((item) => (
-                  <div
-                    key={item.name}
-                    className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                  >
-                    <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                      <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
-                    </div>
-                    <div className="flex-auto">
-                      <a href={item.href} className="block font-semibold text-gray-900">
-                        {item.name}
-                        <span className="absolute inset-0" />
-                      </a>
-                      <p className="mt-1 text-gray-600">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                {callsToAction.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                  >
-                    <item.icon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-            </PopoverPanel>
-          </Popover>
-
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Features
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Marketplace
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Company
-          </a>
-        </PopoverGroup>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </nav>
-      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
-        <div className="fixed inset-0 z-10" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+    <Disclosure as="header" className="bg-white shadow">
+      <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
+        <div className="relative flex h-16 justify-between">
+          <div className="relative z-10 flex px-2 lg:px-0">
+            <div className="flex flex-shrink-0 items-center">
               <img
-                alt=""
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                alt="Your Company"
+                src="../graniteshop-logo.png"
                 className="h-8 w-auto"
               />
-            </a>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon aria-hidden="true" className="h-6 w-6" />
-            </button>
+            </div>
           </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
-                  <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                    Product
-                    <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none group-data-[open]:rotate-180" />
-                  </DisclosureButton>
-                  <DisclosurePanel className="mt-2 space-y-2">
-                    {[...products, ...callsToAction].map((item) => (
-                      <DisclosureButton
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      >
-                        {item.name}
-                      </DisclosureButton>
-                    ))}
-                  </DisclosurePanel>
-                </Disclosure>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Company
-                </a>
-              </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+          <div className="relative z-0 flex flex-1 items-center justify-center px-2 sm:absolute sm:inset-0">
+            <div className="w-full sm:max-w-xs">
+              <label htmlFor="search" className="sr-only">
+                Search
+              </label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <MagnifyingGlassIcon aria-hidden="true" className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="search"
+                  name="search"
+                  type="search"
+                  placeholder="Search"
+                  className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
               </div>
             </div>
           </div>
-        </DialogPanel>
-      </Dialog>
-    </header>
+          <div className="relative z-10 flex items-center lg:hidden">
+            {/* Mobile menu button */}
+            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+              <span className="absolute -inset-0.5" />
+              <span className="sr-only">Open menu</span>
+              <Bars3Icon aria-hidden="true" className="block h-6 w-6 group-data-[open]:hidden" />
+              <XMarkIcon aria-hidden="true" className="hidden h-6 w-6 group-data-[open]:block" />
+            </DisclosureButton>
+          </div>
+          <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
+            <button
+              type="button"
+              className="relative flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              <span className="absolute -inset-1.5" />
+              <span className="sr-only">View notifications</span>
+              <BellIcon aria-hidden="true" className="h-6 w-6" />
+            </button>
+
+            {/* Profile dropdown */}
+            <Menu as="div" className="relative ml-4 flex-shrink-0">
+              <div>
+                <MenuButton className="relative flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <span className="absolute -inset-1.5" />
+                  <span className="sr-only">Open user menu</span>
+                  <img alt="" src={user.imageUrl} className="h-8 w-8 rounded-full" />
+                </MenuButton>
+              </div>
+              <MenuItems
+                transition
+                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              >
+                {userNavigation.map((item) => (
+                  <MenuItem key={item.name}>
+                    <a href={item.href} className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                      {item.name}
+                    </a>
+                  </MenuItem>
+                ))}
+              </MenuItems>
+            </Menu>
+          </div>
+        </div>
+        <nav aria-label="Global" className="hidden lg:flex lg:space-x-8 lg:py-2">
+          {navigation.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              aria-current={item.current ? 'page' : undefined}
+              className={classNames(
+                item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
+                'inline-flex items-center rounded-md px-3 py-2 text-sm font-medium',
+              )}
+            >
+              {item.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <DisclosurePanel as="nav" aria-label="Global" className="lg:hidden">
+        <div className="space-y-1 px-2 pb-3 pt-2">
+          {navigation.map((item) => (
+            <DisclosureButton
+              key={item.name}
+              as="a"
+              href={item.href}
+              aria-current={item.current ? 'page' : undefined}
+              className={classNames(
+                item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
+                'block rounded-md px-3 py-2 text-base font-medium',
+              )}
+            >
+              {item.name}
+            </DisclosureButton>
+          ))}
+        </div>
+        <div className="border-t border-gray-200 pb-3 pt-4">
+          <div className="flex items-center px-4">
+            <div className="flex-shrink-0">
+              <img alt="" src={user.imageUrl} className="h-10 w-10 rounded-full" />
+            </div>
+            <div className="ml-3">
+              <div className="text-base font-medium text-gray-800">{user.name}</div>
+              <div className="text-sm font-medium text-gray-500">{user.email}</div>
+            </div>
+            <button
+              type="button"
+              className="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              <span className="absolute -inset-1.5" />
+              <span className="sr-only">View notifications</span>
+              <BellIcon aria-hidden="true" className="h-6 w-6" />
+            </button>
+          </div>
+          <div className="mt-3 space-y-1 px-2">
+            {userNavigation.map((item) => (
+              <DisclosureButton
+                key={item.name}
+                as="a"
+                href={item.href}
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+              >
+                {item.name}
+              </DisclosureButton>
+            ))}
+          </div>
+        </div>
+      </DisclosurePanel>
+    </Disclosure>
   )
 }

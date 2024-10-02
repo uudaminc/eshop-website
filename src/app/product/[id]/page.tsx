@@ -19,7 +19,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import Header from '@/app/_components/header'
 
 const product = {
-  name: 'Application UI Icon Pack',
+  name: 'Marble Countertop',
   version: { name: '1.0', date: 'June 5, 2021', datetime: '2021-06-05' },
   price: '$220',
   description:
@@ -29,7 +29,7 @@ const product = {
     'Compatible with Figma, Sketch, and Adobe XD',
     'Drawn on 24 x 24 pixel grid',
   ],
-  imageSrc: 'https://tailwindui.com/plus/img/ecommerce-images/product-page-05-product-01.jpg',
+  imageSrc: 'https://granitetopinc.com/wp-content/uploads/2020/03/dedicated-kitchen-countertops.jpg',
   imageAlt: 'Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles.',
 }
 const reviews = {
@@ -163,7 +163,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                 type="button"
                 className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
               >
-                Pay {product.price}
+                Order {product.price}
               </button>
               <button
                 type="button"
